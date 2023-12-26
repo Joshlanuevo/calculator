@@ -4,6 +4,7 @@ import axios from 'axios';
 const Calculator: React.FC = () => {
   const [expression, setExpression] = useState<string>("");
   const [result, setResult] = useState<number | undefined>(undefined);
+  const [history, setHistory] = useState<{ expression: string; result: number | undefined }[]>([]);
 
   const handleClick = (value: string) => {
     setExpression((prevExpression) => prevExpression + value);
@@ -11,8 +12,19 @@ const Calculator: React.FC = () => {
 
   const handleCalculate = async () => {
     try {
+      if (!expression.trim()){
+        setResult(undefined);
+        console.log('Please enter a valid expression.');
+        return;
+      }
       const response = await axios.post<{ result: number }>("http://localhost:5000/api/calculate", { expression });
-      setResult(response.data.result);
+      const newResult = response.data.result;
+
+      // Update result state
+      setResult(newResult);
+
+      // Update history
+      setHistory((prevHistory) => [...prevHistory, { expression, result: newResult }]);
     } catch (error) {
       console.error('Error calculating expression:', error);
     }
@@ -20,6 +32,16 @@ const Calculator: React.FC = () => {
 
   return (
     <div>
+      <div>
+        {/* Display the history */}
+        <ul>
+          {history.map((item, index) => (
+            <li key={index}>
+              {item.expression} = {item.result}
+            </li>
+          ))}
+        </ul>
+      </div>
       <input type="text" value={expression} readOnly />
       <div>
         <button onClick={() => handleClick('1')}>1</button>
