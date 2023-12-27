@@ -13,7 +13,7 @@ const Calculator: React.FC = () => {
 
   const handleCalculate = async () => {
     try {
-      if (!expression.trim()){
+      if (!expression.trim()) {
         setResult(undefined);
         console.log('Please enter a valid expression.');
         return;
@@ -33,16 +33,6 @@ const Calculator: React.FC = () => {
 
   return (
     <div>
-      <div>
-        {/* Display the history */}
-        <ul>
-          {history.map((item, index) => (
-            <li key={index}>
-              {item.expression} = {item.result}
-            </li>
-          ))}
-        </ul>
-      </div>
       <input type="text" value={expression} readOnly />
       <div>
         <button onClick={() => handleClick('1')}>1</button>
@@ -71,14 +61,17 @@ const Calculator: React.FC = () => {
       <div>
         <p>Result: {result}</p>
       </div>
-        <div>
-          {/* Clock icon for history */}
-          <button onClick={() => setShowHistory(!showHistory)}>🕒</button>
-        </div>
-        {/* History Modal */}
-        {showHistory && (
-          <div className="history-modal">
-            <h2>History</h2>
+      <div>
+        {/* Clock icon for history */}
+        <button onClick={() => setShowHistory(!showHistory)}>🕒</button>
+      </div>
+      {/* History Modal */}
+      {showHistory && (
+        <div className="history-modal">
+          <h2>History</h2>
+          {history.length === 0 ? (
+            <p>No history.</p>
+          ) : (
             <ul>
               {history.map((item, index) => (
                 <li key={index}>
@@ -86,11 +79,11 @@ const Calculator: React.FC = () => {
                 </li>
               ))}
             </ul>
-            <button onClick={() => setShowHistory(false)}>Close</button>
-          </div>
-        )}
+          )}
+          <button onClick={() => setShowHistory(false)}>Close</button>
+        </div>
+      )}
     </div>
-    
   );
 };
 
