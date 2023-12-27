@@ -1,29 +1,29 @@
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
-
 .calculator-container {
-  max-width: 300px;
+  max-width: 400px;
   margin: 0 auto;
   font-family: 'Arial', sans-serif;
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .input-display {
-  width: 100%;
-  padding: 10px;
+  width: calc(100% - 20px);
+  padding: 15px;
   font-size: 1.5em;
   text-align: right;
-  margin-bottom: 10px;
-  background-color: #333;
+  margin: 10px;
+  background-color: #444;
   color: white;
   border: none;
   border-radius: 5px;
+  outline: none;
 }
 
 .button-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
+  gap: 15px;
 }
 
 .row {
@@ -38,49 +38,62 @@
 }
 
 button {
-  padding: 10px;
-  font-size: 1.2em;
+  padding: 20px;
+  font-size: 1.4em;
   width: 100%;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  background-color: #61dafb;
+  color: #fff;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #4fa3cc;
 }
 
 .equal {
   background-color: #4caf50;
-  color: white;
 }
 
 .clear {
   background-color: #e74c3c;
-  color: white;
 }
 
 .history-icon {
   font-size: 1.5em;
   cursor: pointer;
-  margin-top: 10px;
+  margin-top: 15px;
+  color: #333;
+  transition: color 0.3s ease;
+}
+
+.history-icon:hover {
+  color: #555;
 }
 
 .result-display {
-  margin-top: 10px;
+  margin-top: 15px;
 }
 
 .result-text {
-  font-size: 1.2em;
+  font-size: 1.4em;
+  color: #333;
 }
 
 .history-modal {
   background-color: #333;
-  padding: 10px;
-  border-radius: 5px;
-  margin-top: 10px;
+  padding: 15px;
+  border-radius: 10px;
+  margin-top: 15px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
 .history-title {
-  font-size: 1.2em;
+  font-size: 1.6em;
   color: white;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 
 .history-text {
@@ -93,15 +106,40 @@ button {
 }
 
 .history-item {
-  margin-bottom: 5px;
+  margin-bottom: 10px;
   color: #ccc;
 }
 
 .close-btn {
   background-color: #555;
   color: white;
-  padding: 5px 10px;
+  padding: 10px 20px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.close-btn:hover {
+  background-color: #333;
+}
+
+/* Responsive Styles */
+@media (max-width: 600px) {
+  .button-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .numeric-buttons {
+    flex-direction: column;
+  }
+
+  button {
+    padding: 15px;
+    font-size: 1.3em;
+  }
+
+  .close-btn {
+    padding: 10px 15px;
+  }
 }
