@@ -32,55 +32,56 @@ const Calculator: React.FC = () => {
   };
 
   return (
-    <div>
-      <input type="text" value={expression} readOnly />
-      <div>
-        <button onClick={() => handleClick('1')}>1</button>
-        <button onClick={() => handleClick('2')}>2</button>
-        <button onClick={() => handleClick('3')}>3</button>
-        <button onClick={() => handleClick('+')}>+</button>
+    <div className="calculator-container bg-gray-800 text-white p-4 rounded-md shadow-md">
+      <input type="text" className="input-display bg-gray-700 text-white p-2 rounded-md mb-2" value={expression} readOnly />
+      <div className="button-grid grid grid-cols-4 gap-4">
+        <div className="row flex justify-between">
+          <button onClick={() => handleClick('1')} className="btn">1</button>
+          <button onClick={() => handleClick('2')} className="btn">2</button>
+          <button onClick={() => handleClick('3')} className="btn">3</button>
+          <button onClick={() => handleClick('+')} className="btn bg-blue-500">+</button>
+        </div>
+        <div className="row flex justify-between">
+          <button onClick={() => handleClick('4')} className="btn">4</button>
+          <button onClick={() => handleClick('5')} className="btn">5</button>
+          <button onClick={() => handleClick('6')} className="btn">6</button>
+          <button onClick={() => handleClick('-')} className="btn bg-blue-500">-</button>
+        </div>
+        <div className="row flex justify-between">
+          <button onClick={() => handleClick('7')} className="btn">7</button>
+          <button onClick={() => handleClick('8')} className="btn">8</button>
+          <button onClick={() => handleClick('9')} className="btn">9</button>
+          <button onClick={() => handleClick('*')} className="btn bg-blue-500">*</button>
+        </div>
+        <div className="row flex justify-between">
+          <button onClick={() => handleClick('0')} className="btn">0</button>
+          <button onClick={handleCalculate} className="btn equal bg-green-500">=</button>
+          <button onClick={() => setExpression('')} className="btn clear bg-red-500">C</button>
+          <button onClick={() => handleClick('/')} className="btn bg-blue-500">/</button>
+        </div>
       </div>
-      <div>
-        <button onClick={() => handleClick('4')}>4</button>
-        <button onClick={() => handleClick('5')}>5</button>
-        <button onClick={() => handleClick('6')}>6</button>
-        <button onClick={() => handleClick('-')}>-</button>
+      <div className="result-display mt-4">
+        <p className="text-xl">Result: {result !== undefined ? result : 'No result'}</p>
       </div>
-      <div>
-        <button onClick={() => handleClick('7')}>7</button>
-        <button onClick={() => handleClick('8')}>8</button>
-        <button onClick={() => handleClick('9')}>9</button>
-        <button onClick={() => handleClick('*')}>*</button>
-      </div>
-      <div>
-        <button onClick={() => handleClick('0')}>0</button>
-        <button onClick={handleCalculate}>=</button>
-        <button onClick={() => setExpression('')}>C</button>
-        <button onClick={() => handleClick('/')}>/</button>
-      </div>
-      <div>
-        <p>Result: {result}</p>
-      </div>
-      <div>
-        {/* Clock icon for history */}
-        <button onClick={() => setShowHistory(!showHistory)}>🕒</button>
+      <div className="history-icon mt-4" onClick={() => setShowHistory(!showHistory)}>
+        🕒
       </div>
       {/* History Modal */}
       {showHistory && (
-        <div className="history-modal">
-          <h2>History</h2>
+        <div className="history-modal bg-gray-700 p-4 rounded-md mt-4">
+          <h2 className="text-xl mb-2">History</h2>
           {history.length === 0 ? (
             <p>No history.</p>
           ) : (
             <ul>
               {history.map((item, index) => (
-                <li key={index}>
+                <li key={index} className="mb-1">
                   {item.expression} = {item.result}
                 </li>
               ))}
             </ul>
           )}
-          <button onClick={() => setShowHistory(false)}>Close</button>
+          <button className="btn bg-gray-600 mt-2" onClick={() => setShowHistory(false)}>Close</button>
         </div>
       )}
     </div>
