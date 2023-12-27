@@ -5,6 +5,7 @@ const Calculator: React.FC = () => {
   const [expression, setExpression] = useState<string>("");
   const [result, setResult] = useState<number | undefined>(undefined);
   const [history, setHistory] = useState<{ expression: string; result: number | undefined }[]>([]);
+  const [showHistory, setShowHistory] = useState(false);
 
   const handleClick = (value: string) => {
     setExpression((prevExpression) => prevExpression + value);
@@ -70,7 +71,26 @@ const Calculator: React.FC = () => {
       <div>
         <p>Result: {result}</p>
       </div>
+        <div>
+          {/* Clock icon for history */}
+          <button onClick={() => setShowHistory(!showHistory)}>🕒</button>
+        </div>
+        {/* History Modal */}
+        {showHistory && (
+          <div className="history-modal">
+            <h2>History</h2>
+            <ul>
+              {history.map((item, index) => (
+                <li key={index}>
+                  {item.expression} = {item.result}
+                </li>
+              ))}
+            </ul>
+            <button onClick={() => setShowHistory(false)}>Close</button>
+          </div>
+        )}
     </div>
+    
   );
 };
 
