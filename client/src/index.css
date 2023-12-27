@@ -2,71 +2,106 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+.calculator-container {
+  max-width: 300px;
+  margin: 0 auto;
+  font-family: 'Arial', sans-serif;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+.input-display {
+  width: 100%;
+  padding: 10px;
+  font-size: 1.5em;
+  text-align: right;
+  margin-bottom: 10px;
+  background-color: #333;
+  color: white;
+  border: none;
+  border-radius: 5px;
 }
 
-body {
-  margin: 0;
+.button-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.row {
   display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  justify-content: space-between;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+.numeric-buttons {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 }
 
 button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
+  padding: 10px;
+  font-size: 1.2em;
+  width: 100%;
+  border: none;
+  border-radius: 5px;
   cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+.equal {
+  background-color: #4caf50;
+  color: white;
+}
+
+.clear {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.history-icon {
+  font-size: 1.5em;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.result-display {
+  margin-top: 10px;
+}
+
+.result-text {
+  font-size: 1.2em;
+}
+
+.history-modal {
+  background-color: #333;
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+.history-title {
+  font-size: 1.2em;
+  color: white;
+  margin-bottom: 10px;
+}
+
+.history-text {
+  color: #ccc;
+}
+
+.history-list {
+  list-style: none;
+  padding: 0;
+}
+
+.history-item {
+  margin-bottom: 5px;
+  color: #ccc;
+}
+
+.close-btn {
+  background-color: #555;
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }

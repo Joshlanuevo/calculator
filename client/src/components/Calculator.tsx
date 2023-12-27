@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 const Calculator: React.FC = () => {
-  const [expression, setExpression] = useState<string>("");
+  const [expression, setExpression] = useState<string>('');
   const [result, setResult] = useState<number | undefined>(undefined);
   const [history, setHistory] = useState<{ expression: string; result: number | undefined }[]>([]);
   const [showHistory, setShowHistory] = useState(false);
@@ -18,7 +18,7 @@ const Calculator: React.FC = () => {
         console.log('Please enter a valid expression.');
         return;
       }
-      const response = await axios.post<{ result: number }>("http://localhost:5000/api/calculate", { expression });
+      const response = await axios.post<{ result: number }>('http://localhost:5000/api/calculate', { expression });
       const newResult = response.data.result;
 
       // Update result state
@@ -32,56 +32,59 @@ const Calculator: React.FC = () => {
   };
 
   return (
-    <div className="calculator-container bg-gray-800 text-white p-4 rounded-md shadow-md">
-      <input type="text" className="input-display bg-gray-700 text-white p-2 rounded-md mb-2" value={expression} readOnly />
-      <div className="button-grid grid grid-cols-4 gap-4">
-        <div className="row flex justify-between">
-          <button onClick={() => handleClick('1')} className="btn">1</button>
-          <button onClick={() => handleClick('2')} className="btn">2</button>
-          <button onClick={() => handleClick('3')} className="btn">3</button>
-          <button onClick={() => handleClick('+')} className="btn bg-blue-500">+</button>
+    <div className="calculator-container">
+      <input type="text" className="input-display" value={expression} readOnly />
+      <div className="button-grid">
+        <div className="row">
+          <button onClick={() => handleClick('1')}>1</button>
+          <button onClick={() => handleClick('2')}>2</button>
+          <button onClick={() => handleClick('3')}>3</button>
+          <button onClick={() => handleClick('+')}>+</button>
         </div>
-        <div className="row flex justify-between">
-          <button onClick={() => handleClick('4')} className="btn">4</button>
-          <button onClick={() => handleClick('5')} className="btn">5</button>
-          <button onClick={() => handleClick('6')} className="btn">6</button>
-          <button onClick={() => handleClick('-')} className="btn bg-blue-500">-</button>
+        <div className="row">
+          <button onClick={() => handleClick('4')}>4</button>
+          <button onClick={() => handleClick('5')}>5</button>
+          <button onClick={() => handleClick('6')}>6</button>
+          <button onClick={() => handleClick('-')}>-</button>
         </div>
-        <div className="row flex justify-between">
-          <button onClick={() => handleClick('7')} className="btn">7</button>
-          <button onClick={() => handleClick('8')} className="btn">8</button>
-          <button onClick={() => handleClick('9')} className="btn">9</button>
-          <button onClick={() => handleClick('*')} className="btn bg-blue-500">*</button>
+        <div className="row">
+          <button onClick={() => handleClick('7')}>7</button>
+          <button onClick={() => handleClick('8')}>8</button>
+          <button onClick={() => handleClick('9')}>9</button>
+          <button onClick={() => handleClick('*')}>*</button>
         </div>
-        <div className="row flex justify-between">
-          <button onClick={() => handleClick('0')} className="btn">0</button>
-          <button onClick={handleCalculate} className="btn equal bg-green-500">=</button>
-          <button onClick={() => setExpression('')} className="btn clear bg-red-500">C</button>
-          <button onClick={() => handleClick('/')} className="btn bg-blue-500">/</button>
+        <div className="row">
+          <div className="numeric-buttons">
+            <button onClick={() => handleClick('0')}>0</button>
+            <button onClick={handleCalculate} className="equal">=</button>
+            <button onClick={() => setExpression('')} className="clear">C</button>
+            <button onClick={() => handleClick('/')}>/</button>
+          </div>
         </div>
       </div>
-      <div className="result-display mt-4">
-        <p className="text-xl">Result: {result !== undefined ? result : 'No result'}</p>
+      <div className="result-display">
+        <p className="result-text">Result: {result !== undefined ? result : 'No result'}</p>
       </div>
-      <div className="history-icon mt-4" onClick={() => setShowHistory(!showHistory)}>
+      <div className="history-icon" onClick={() => setShowHistory(!showHistory)}>
         🕒
       </div>
-      {/* History Modal */}
       {showHistory && (
-        <div className="history-modal bg-gray-700 p-4 rounded-md mt-4">
-          <h2 className="text-xl mb-2">History</h2>
+        <div className="history-modal">
+          <h2 className="history-title">History</h2>
           {history.length === 0 ? (
-            <p>No history.</p>
+            <p className="history-text">No history.</p>
           ) : (
-            <ul>
+            <ul className="history-list">
               {history.map((item, index) => (
-                <li key={index} className="mb-1">
+                <li key={index} className="history-item">
                   {item.expression} = {item.result}
                 </li>
               ))}
             </ul>
           )}
-          <button className="btn bg-gray-600 mt-2" onClick={() => setShowHistory(false)}>Close</button>
+          <button className="close-btn" onClick={() => setShowHistory(false)}>
+            Close
+          </button>
         </div>
       )}
     </div>
