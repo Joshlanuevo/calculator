@@ -31,6 +31,16 @@ const Calculator: React.FC = () => {
     }
   };
 
+  const handleDeleteHistoryItem = (index: number) => {
+    const updatedHistory = [...history];
+    updatedHistory.splice(index, 1);
+    setHistory(updatedHistory);
+  };
+
+  const handleClearHistory = () => {
+    setHistory([]);
+  };
+
   return (
     <div className="calculator-container">
       <input type="text" className="input-display" value={expression} readOnly />
@@ -74,13 +84,27 @@ const Calculator: React.FC = () => {
           {history.length === 0 ? (
             <p className="history-text">No history.</p>
           ) : (
-            <ul className="history-list">
-              {history.map((item, index) => (
-                <li key={index} className="history-item">
-                  {item.expression} = {item.result}
-                </li>
-              ))}
-            </ul>
+            <>
+              <ul className="history-list">
+                {history.map((item, index) => (
+                  <li key={index} className="history-item">
+                    <span>{item.expression} = {item.result}</span>
+                    <button
+                      className="delete-btn"
+                      onClick={() => handleDeleteHistoryItem(index)}
+                    >
+                      Delete
+                    </button>
+                  </li>
+                ))}
+              </ul>
+              <button
+                className="clear-history-btn"
+                onClick={handleClearHistory}
+              >
+                Clear History
+              </button>
+            </>
           )}
           <button className="close-btn" onClick={() => setShowHistory(false)}>
             Close
