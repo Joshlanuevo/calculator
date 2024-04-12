@@ -12,6 +12,7 @@ app.post("/api/calculate", (req, res) => {
   const { expression } = req.body;
   const result = evaluateExpression(expression);
   res.json({ result });
+  console.log(`result: ${result}`);
 }); 
 
 function evaluateExpression(expression) {
