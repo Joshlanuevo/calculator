@@ -1,11 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import Modal from './Modal';
 
 const Calculator: React.FC = () => {
   const [expression, setExpression] = useState<string>('');
   const [result, setResult] = useState<number | undefined>(undefined);
   const [history, setHistory] = useState<{ expression: string; result: number | undefined }[]>([]);
   const [showHistory, setShowHistory] = useState(false);
+  const [serverRunning, setServerRunning] = useState(true);
+  const [showModal, setShowModal] = useState(false);
+
+  useEffect(() => {
+    // Check server status when component mounts
+    checkServerStatus();
+  });
+
+  const checkServerStatus = async () => {
+    try {
+      // Ping the server to check if it's running
+      await axios.get('http://localhost:5000');
+      setServerRunning(true);
+    } catch (error) {
+      setServerRunning(false);
+      setShowModal(true); 
+    }
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false); // Close modal
+  };
 
   const handleClick = (value: string) => {
     setExpression((prevExpression) => prevExpression + value);
@@ -43,6 +66,8 @@ const Calculator: React.FC = () => {
 
   return (
     <div className="calculator-container">
+      {/* Check if server is not running and show modal */}
+      {/* {showModal && <Modal onClose={handleCloseModal} />} */}
       <input type="text" className="input-display" value={expression} readOnly />
       <div className="button-grid">
         <div className="row">
